@@ -1,10 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './task.css';
+import styled from 'styled-components';
+import star from '../star.svg';
+import starOutline from '../star-thin.svg';
+
+
+const StyledTask = styled.div`
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+  display: flex;
+`;
+
+const Star = styled.button`
+  width: 20px;
+  height: 20px;
+  ${({ active }) => active && `
+    background: black;
+  `}
+`
+
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
     return (
-        <div className={`list-item ${state}`}>
+        <StyledTask className={`list-item ${state}`}>
           <label className="checkbox">
             <input
               type="checkbox"
@@ -27,11 +47,14 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
             {state !== 'TASK_ARCHIVED' && (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a onClick={() => onPinTask(id)}>
-                <span className={`icon-star`} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
+                {state == 'TASK_PINNED'
+                ? <img src={star} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
+                : <img src={starOutline} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
+                }
               </a>
             )}
           </div>
-        </div>
+        </StyledTask>
     );
 }
 
