@@ -8,17 +8,23 @@ import starOutline from '../star-thin.svg';
 const StyledTask = styled.div`
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
-  line-height: 24px;
+  align-items: center;
   color: #333;
   display: flex;
 `;
 
-const Star = styled.button`
-  width: 20px;
-  height: 20px;
-  ${({ active }) => active && `
-    background: black;
-  `}
+const Title = styled.div`
+  flex-grow: 1;
+  padding-right: 1rem;
+  input {
+   width: 100%;
+   line-height: 24px;
+  }
+`
+
+const PinButton = styled.button`
+  background-color: transparent;
+  border: none;
 `
 
 
@@ -39,19 +45,19 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
               aria-label={`archiveTask-${id}`}
             />
           </label>
-          <div className="title">
+          <Title className="title">
             <input type="text" value={title} readOnly={true} placeholder="Input title" />
-          </div>
+          </Title>
     
           <div className="actions" onClick={event => event.stopPropagation()}>
             {state !== 'TASK_ARCHIVED' && (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
-              <a onClick={() => onPinTask(id)}>
+              <PinButton onClick={() => onPinTask(id)}>
                 {state == 'TASK_PINNED'
-                ? <img src={star} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
-                : <img src={starOutline} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
+                ? <img src={star} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} width="15" height="15" />
+                : <img src={starOutline} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} width="15" height="15" />
                 }
-              </a>
+              </PinButton>
             )}
           </div>
         </StyledTask>
