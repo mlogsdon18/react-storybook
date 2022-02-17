@@ -1,12 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Task from './Task';
+import check from '../check.svg';
+
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
   };
+
+  const Message = styled.div`
+    text-align: center;
+  `
+
   const LoadingRow = (
     <div className="cmp-loading">
       <span className="cmp-loading__checkbox glow-checkbox" />
@@ -32,11 +41,11 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   if (tasks.length === 0) {
     return (
       <div className="cmp-list" key={"empty"} data-testid="empty">
-        <div className="cmp-message">
-          <span className="cmp-message__icon icon-check" />
+        <Message className="cmp-message">
+          <img className="cmp-message__icon icon-check" src={check} />
           <div className="cmp-message__title">You have no tasks</div>
           <div className="cmp-message__subtitle">Sit back and relax</div>
-        </div>
+        </Message>
       </div>
     );
   }

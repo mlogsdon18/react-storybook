@@ -1,0 +1,70 @@
+
+ @function luminance($color) {
+  // $linear-channel-values are our Lookup Table of constants
+  $red: nth($linear-channel-values, red($color) + 1);
+  $green: nth($linear-channel-values, green($color) + 1);
+  $blue: nth($linear-channel-values, blue($color) + 1);
+  $calculation: .2126 * $red + .7152 * $green + .0722 * $blue;
+  @return $calculation;
+}
+ 
+ @function contrast-ratio($fg, $bg) {
+  $luminance1: luminance($fg) + 0.05;
+  $luminance2: luminance($bg) + 0.05;
+  $ratio: $luminance1 / $luminance2;
+  @if $luminance2 > $luminance1 {
+    $ratio: 1 / $ratio;
+  }
+  // Round to a hundreth because 6.96 should not pass a ratio of 7.0
+  $ratio: round($ratio * 100) / 100;
+  @return $ratio;
+}
+ 
+ @function a11y-color($foreground, $background) {
+  $ratio: color-contrast($foreground, $background);
+  @return $startingHeight / $height;
+}
+
+@mixin colors($foreground, $background) {
+  background-color: $background;
+  color: $foreground;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  color: a11y-color(white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
