@@ -1,19 +1,20 @@
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
  */
-import { 
-  configureStore, 
+import {
+  configureStore,
   createSlice,
-  createAsyncThunk
+  createAsyncThunk,
 } from '@reduxjs/toolkit';
 
 /*
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
+
 const TaskBoxData = {
   tasks: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
@@ -51,30 +52,29 @@ const TasksSlice = createSlice({
         state.tasks[task].state = newTaskState;
       }
     },
-   /*
-    * Extends the reducer for the async actions
-    * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
-    */
-   extraReducers(builder) {
-     builder
-     .addCase(fetchTasks.pending, (state) => {
-       state.status = 'loading';
-       state.error = null;
-       state.tasks = [];
-     })
-     .addCase(fetchTasks.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.error = null;
-        // Add any fetched tasks to the array
-        state.tasks = action.payload;
-     })
-     .addCase(fetchTasks.rejected, (state) => {
-       state.status = 'failed';
-       state.error = "Something went wrong";
-       state.tasks = [];
-     });
-   }
   },
+  /*
+   * Extends the reducer for the async actions
+   * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk*/
+extraReducers(builder) {
+  builder
+  .addCase(fetchTasks.pending, (state) => {
+    state.status = 'loading';
+    state.error = null;
+    state.tasks = [];
+  })
+  .addCase(fetchTasks.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    state.error = null;
+    // Add any fetched tasks to the array
+    state.tasks = action.payload;
+   })
+  .addCase(fetchTasks.rejected, (state) => {
+    state.status = 'failed';
+    state.error = "Something went wrong";
+    state.tasks = [];
+  });
+},
 });
 
 // The actions contained in the slice are exported for usage in our components

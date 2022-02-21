@@ -2,12 +2,15 @@
   "name": "react-storybook",
   "version": "0.1.0",
   "private": true,
+  "license": "UNLICENSED",
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@storybook/addon-a11y": "^6.4.19",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "msw": "^0.36.8",
+    "msw-storybook-addon": "^1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -66,5 +69,8 @@
     "@storybook/testing-library": "^0.0.9",
     "node-sass": "^7.0.1",
     "webpack": "^5.68.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

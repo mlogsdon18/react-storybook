@@ -25,10 +25,6 @@
   @return $startingHeight / $height;
 }
 
-@mixin colors($foreground, $background) {
-  background-color: $background;
-  color: $foreground;
-}
 
 .App {
   text-align: center;
